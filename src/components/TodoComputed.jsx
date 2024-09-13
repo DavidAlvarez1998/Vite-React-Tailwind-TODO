@@ -6,7 +6,7 @@ const TodoComputed = ({ countTodosIncomplete, clearComplete }) => {
                     : countTodosIncomplete === 1 ? "tarea pendiente." : "tareas pendientes."}
             </span>
             <button
-                className=' dark:text-gray-300 dark:hover:text-gray-100 text-gray-600'
+                className=' dark:text-gray-300 dark:hover:text-gray-100 text-gray-600 hover:text-gray-900'
                 onClick={clearComplete}
             >
                 Limpiar completados
