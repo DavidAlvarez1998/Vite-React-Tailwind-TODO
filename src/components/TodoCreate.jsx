@@ -12,15 +12,14 @@ const TodoCreate = ({ createTodo }) => {
         }
         createTodo(title)
         return setTitle('')
-
     }
 
     return (
-        <form onSubmit={handleSubmitAddTodo} className="flex items-center gap-4 bg-white rounded-md overflow-hidden py-4 px-4 ">
+        <form onSubmit={handleSubmitAddTodo} className=" dark:bg-gray-800 flex items-center gap-4 bg-white rounded-md overflow-hidden py-4 px-4 ">
             <span className="inline-block h-5 w-5 rounded-full border-2"></span>
             <input type="text"
                 placeholder="Crear Tarea"
-                className="w-full text-gray-400 outline-none"
+                className="w-full text-gray-400 outline-none dark:bg-gray-800"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
             />
