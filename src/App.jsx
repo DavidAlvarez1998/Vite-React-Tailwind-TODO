@@ -4,36 +4,18 @@ import TodoCreate from './components/TodoCreate';
 import TodoList from './components/TodoList';
 import TodoComputed from './components/TodoComputed';
 import TodoFilter from './components/TodoFilter';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const initialStateTodos = [
-  {
-    id: 1,
-    title: "Este es un Titulo  👽 (^///^)",
-    complete: false
-  },
-  {
-    id: 2,
-    title: "un Titulo mas 👽 ",
-    complete: false
-  },
-  {
-    id: 3,
-    title: "Y otro👽 ",
-    complete: true
-  },
-  {
-    id: 4,
-    title: "Otro mas👽 ",
-    complete: false
-  }
-]
-
+const initialStateTodos = JSON.parse(localStorage.getItem('todos')) || []
 
 
 function App() {
 
   const [todos, setTodos] = useState(initialStateTodos)
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos))
+  }, [todos])
 
   const createTodo = (title) => {
     const newTodo = {
