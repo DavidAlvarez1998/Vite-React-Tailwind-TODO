@@ -34,7 +34,12 @@ function App() {
     return setTodos(todos.map(todo => todo.id === id ? { ...todo, complete: !todo.complete } : todo))
   }
 
-  const countTodosIncomplete = todos.filter(todo => !todo.complete).length
+  const countComputed = {
+    all: todos.length,
+    pendientes: todos.filter(todo => !todo.complete).length,
+    completados: todos.filter(todo => todo.complete).length
+
+  }
 
   const clearComplete = () => {
     return setTodos(todos.filter(todo => todo.complete !== true))
@@ -67,7 +72,7 @@ function App() {
   return (
 
 
-    <div className="bg-[url('./assets/images/bg-mobile-light.jpg')] bg-no-repeat bg-contain bg-gray-300
+    <div className="transition-all duration-700 bg-[url('./assets/images/bg-mobile-light.jpg')] bg-no-repeat bg-contain bg-gray-300
     min-h-screen dark:bg-gray-900 dark:bg-[url('./assets/images/bg-mobile-dark.jpg')]" >
 
       <Header />
@@ -88,7 +93,10 @@ function App() {
           updateTodo={updateTodo}
         />
         <TodoComputed
-          countTodosIncomplete={countTodosIncomplete} clearComplete={clearComplete} />
+          countComputed={countComputed}
+          clearComplete={clearComplete}
+          filter={filter}
+        />
         <TodoFilter
           ChangeFilter={ChangeFilter}
           filter={filter}
@@ -98,7 +106,7 @@ function App() {
 
 
 
-      <footer className="mt-8 text-center dark:text-gray-300"> drag and drop </footer>
+      <footer className="transition-all duration-700 mt-8 text-center dark:text-gray-300"> drag and drop </footer>
 
     </div >
   )
