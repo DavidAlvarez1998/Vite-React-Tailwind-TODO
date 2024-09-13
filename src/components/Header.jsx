@@ -2,17 +2,22 @@ import { useEffect, useState } from "react";
 import IconMoon from "./icons/IconMoon";
 import IconSun from "./icons/IconSun";
 
+
+const initialTeme = () => localStorage.getItem('theme') === "dark"
+
 const Header = () => {
 
-    const [darkMode, setDarkMode] = useState(false)
+    const [darkMode, setDarkMode] = useState(initialTeme)
 
     useEffect(() => {
 
         if (darkMode) {
             document.documentElement.classList.add("dark")
+            localStorage.theme = "dark"
         }
         else {
             document.documentElement.classList.remove('dark')
+            localStorage.theme = "light"
         }
     }, [darkMode])
 
