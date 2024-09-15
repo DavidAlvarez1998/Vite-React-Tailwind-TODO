@@ -1,4 +1,4 @@
-
+import { DragDropContext } from '@hello-pangea/dnd';
 import Header from './components/Header';
 import TodoCreate from './components/TodoCreate';
 import TodoList from './components/TodoList';
@@ -8,8 +8,20 @@ import { useEffect, useState } from 'react';
 
 const initialStateTodos = JSON.parse(localStorage.getItem('todos')) || []
 
+const reorder = (list, starIndex, endIndex) => {
+
+  const result = [...list]
+  const [removed] = result.splice(starIndex, 1)
+  result.splice(endIndex, 0, removed)
+  return result
+}
+
+
+
 
 function App() {
+
+
 
   const [todos, setTodos] = useState(initialStateTodos)
 
@@ -66,32 +78,42 @@ function App() {
   }
 
 
+  const handleDragEnd = (result) => {
+    const { destination, source } = result;
+    if (!destination) return;
+    if (
+      source.index === destination.index &&
+      source.droppableId === destination.droppableId
+    )
+      return;
+
+    setTodos((prevTasks) =>
+      reorder(prevTasks, source.index, destination.index)
+    );
+  };
+
+
 
 
 
   return (
 
 
-    <div className="transition-all duration-700 bg-[url('./assets/images/bg-mobile-light.jpg')] bg-no-repeat bg-contain bg-gray-300
-    min-h-screen dark:bg-gray-900 dark:bg-[url('./assets/images/bg-mobile-dark.jpg')]" >
-
+    <div className="transition-all duration-700 bg-[url('./assets/images/bg-mobile-light.jpg')] md:bg-[url('./assets/images/bg-desktop-light.jpg')] bg-no-repeat bg-contain bg-gray-300
+    min-h-screen dark:bg-gray-900 dark:bg-[url('./assets/images/bg-mobile-dark.jpg')] dark:md:bg-[url('./assets/images/bg-desktop-dark.jpg')]
+    " >
       <Header />
-
-
-
       <main className="container mx-auto mt-8 px-4 ">
-
-
-
         <TodoCreate
           createTodo={createTodo}
         />
-
-        <TodoList
-          todos={filterTodos()}
-          deleteTodo={deleteTodo}
-          updateTodo={updateTodo}
-        />
+        <DragDropContext onDragEnd={handleDragEnd}>
+          <TodoList
+            todos={filterTodos()}
+            deleteTodo={deleteTodo}
+            updateTodo={updateTodo}
+          />
+        </DragDropContext>
         <TodoComputed
           countComputed={countComputed}
           clearComplete={clearComplete}

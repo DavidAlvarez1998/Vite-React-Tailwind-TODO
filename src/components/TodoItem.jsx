@@ -1,9 +1,11 @@
+
 import IconCross from "./icons/IconCross";
 import IconCheck from "./icons/IconCheck";
+import React from "react";
 
 
 
-const TodoItem = ({ todo, deleteTodo, updateTodo }) => {
+const TodoItem = React.forwardRef(({ todo, deleteTodo, updateTodo, ...props }, ref) => {
 
     const handleClickDeleteTodo = () => {
         console.log("Tarea Elimia - " + todo.title)
@@ -19,7 +21,7 @@ const TodoItem = ({ todo, deleteTodo, updateTodo }) => {
     const clasNamefalse = 'inline-block h-5 w-5 rounded-full border-2 flex-none'
 
     return (
-        <article className='transition-all duration-700 flex gap-4 border-b border-b-gray-400 py-4 px-4 dark:bg-gray-800'>
+        <article {...props} ref={ref} className='transition-all duration-700 flex gap-4 border-b border-b-gray-400 py-4 px-4 dark:bg-gray-800'>
 
             <button
                 className={complete ? clasNameTrue : clasNamefalse}
@@ -42,6 +44,7 @@ const TodoItem = ({ todo, deleteTodo, updateTodo }) => {
         </article>
 
     )
-}
+})
+
 
 export default TodoItem;
