@@ -8,12 +8,12 @@ import { useEffect, useState } from 'react';
 
 const initialStateTodos = JSON.parse(localStorage.getItem('todos')) || []
 
-const reorder = (list, starIndex, endIndex) => {
 
-  const result = [...list]
-  const [removed] = result.splice(starIndex, 1)
-  result.splice(endIndex, 0, removed)
-  return result
+const reorder = (list, startIndex, endIndex) => {
+  const result = [...list];
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+  return result;
 }
 
 
@@ -87,6 +87,8 @@ function App() {
     )
       return;
 
+    console.log("por aqui mijo")
+
     setTodos((prevTasks) =>
       reorder(prevTasks, source.index, destination.index)
     );
@@ -107,6 +109,7 @@ function App() {
         <TodoCreate
           createTodo={createTodo}
         />
+
         <DragDropContext onDragEnd={handleDragEnd}>
           <TodoList
             todos={filterTodos()}

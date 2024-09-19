@@ -30,8 +30,6 @@ const TodoItem = React.forwardRef(({ todo, deleteTodo, updateTodo, ...props }, r
                 {complete && <IconCheck />}
             </button>
 
-
-
             <p className={`transition-all duration-700 dark:text-gray-300 text-gray-600 grow ${complete && "line-through"}`}>{todo.title}</p>
 
 
